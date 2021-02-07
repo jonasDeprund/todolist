@@ -21,6 +21,8 @@ function addTodo(event) {
   newTodo.classList.add('todo-item')
   todoDiv.appendChild(newTodo)
 
+  saveLocalTodos(todoInput.value)
+
   const completeButton = document.createElement('button')
   completeButton.innerHTML = '<i class="fas fa-check"></i>'
   completeButton.classList.add('complete-btn')
@@ -68,11 +70,21 @@ function filterTodo(e) {
         break
       case 'uncompleted':
         if (!todo.classList.contains('completed')) {
-          todo.style.display = 'none'
-        } else {
           todo.style.display = 'flex'
+        } else {
+          todo.style.display = 'none'
         }
-        break
     }
   })
+}
+
+function saveLocalTodos(todo) {
+  let todos
+  if (localStorage.getItem('todos') === null) {
+    todos = []
+  } else {
+    todos = JSON.parse(localStorage.getItem('todos'))
+  }
+  todos.push(todo)
+  localStorage.setItem('todo', JSON.stringify(todos))
 }
