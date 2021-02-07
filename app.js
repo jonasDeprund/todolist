@@ -7,8 +7,6 @@ const todoList = document.querySelector('.todo-list')
 todoButton.addEventListener('click', addTodo)
 todoList.addEventListener('click', deleteCheck)
 
-console.log(todoList[0])
-
 // Functions
 
 function addTodo(event) {
@@ -40,7 +38,10 @@ function deleteCheck(e) {
   const item = e.target
   if (item.classList[0] === 'trash-btn') {
     const todo = item.parentElement
-    todo.remove()
+    todo.classList.add('fall')
+    todo.addEventListener('transitionend', function () {
+      todo.remove()
+    })
   }
 
   if (item.classList[0] === 'complete-btn') {
